@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flag Loader</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #111;
+      color: #0f0;
+      padding: 20px;
+    }
+    #flag {
+      white-space: pre-wrap;
+      border: 1px solid #0f0;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Flag Output</h2>
+<div id="flag">Loading...</div>
+
+<script>
+(async () => {
+  const output = document.getElementById("flag");
+
+  try {
+    const res = await fetch("/flag.txt", { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const text = await res.text();
+    output.textContent = text;
+  } catch (err) {
+    output.textContent =
+      "Failed to load /flag.txt\n" +
+      "Reason: " + err.message;
+  }
+})();
+</script>
+
+</body>
+</html>
+
+
